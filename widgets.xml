@@ -16,34 +16,34 @@
 			<radiobutton value="bmw" />
 			<radiobutton value="opel" />
 		</layout>
-		<combobox name="cars" method="onComboChoice">
+		<combobox name="cars" method="onCurrentIndexChanged">
 			<item>Maserati</item>
 			<item>VW</item>
 			<item>Peugeot</item>
 			<item>Reanult</item>
 		</combobox>
-		<combobox name="types">
+		<combobox name="types" method="onCurrentIndexChanged">
 			<item>combi</item>
 			<item>pick-up</item>
 			<item>sedan</item>
 			<item>hatchback</item>
 		</combobox>
 		<button value="jakis" />
-		<combobox name="types">
-			<item>combi</item>
-			<item>pick-up</item>
-			<item>sedan</item>
-			<item>hatchback</item>
+		<combobox name="wiek" method="onCurrentIndexChanged">
+			<item>pon. 5</item>
+			<item>pon. 15</item>
+			<item>zabytki</item>
+			<item>antyki</item>
 		</combobox>
 		<button value="jakis" />
 	</layout>
 	<layout orientation="vertical">
 		<label value="wartosc" />
-		<combobox name="types">
-			<item>combi</item>
-			<item>pick-up</item>
-			<item>sedan</item>
-			<item>hatchback</item>
+		<combobox name="pochodzenie" method="onCurrentIndexChanged">
+			<item>Japonia</item>
+			<item>Korea</item>
+			<item>USA</item>
+			<item>Niemcy</item>
 		</combobox>
 	</layout>
 </layout>

@@ -12,14 +12,10 @@ GenericDialog::GenericDialog(ViewTree* tree, QWidget *parent, Qt::WindowFlags f)
 {
     treeRoot_ = tree;
     setView();
-
 }
-static uint16_t count;
-void GenericDialog::setWidgets(QBoxLayout* layout, ViewTree* node)
-{
-    ++count;
-    std::cout << "\n" << count << std::flush;
 
+void GenericDialog::setWidgets(QBoxLayout* layout, ViewTree* node)
+{    
     QVector<ViewTree *> children = node->getChildren();
 
     QBoxLayout* localLayout;
@@ -74,6 +70,13 @@ void GenericDialog::setWidgets(QBoxLayout* layout, ViewTree* node)
                 widget->addItem(s);
             }
             layout->addWidget(widget);
+            QString method = node->getMethod();
+            if(!method.isEmpty())
+            {
+                //connect(widget, &QComboBox::currentIndexChanged, this, &GenericDialog::onCurrentIndexChanged);
+                connect(widget, SIGNAL(currentIndexChanged(int)), this, SLOT(onCurrentIndexChanged(int)));
+                widgetsMap_[widget] = node->getName();
+            }
         }
         break;
     case QtType::CheckBox:
@@ -112,6 +115,16 @@ void GenericDialog::setWidgets(QBoxLayout* layout, ViewTree* node)
     }
 }
 
+void GenericDialog::onCurrentIndexChanged(int index)
+{
+    QWidget* obj = (QWidget*)sender();
+    auto it = widgetsMap_.find(obj);
+
+    ;
+
+    std::cout << "\nWybrono idx " << index << " z combo " << it.value().toStdString() << std::flush;
+}
+
 void GenericDialog::setView()
 {
     QBoxLayout *mainLayout;
@@ -145,10 +158,5 @@ void GenericDialog::setView()
     }
 
     setLayout(mainLayout);
-
-}
-
-void GenericDialog::onComboChoice(int index)
-{
 
 }

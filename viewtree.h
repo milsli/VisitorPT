@@ -28,6 +28,7 @@ public:
     QString getName() const;
     QtType getType() const;
     QStringList getValue() const;
+    QString getMethod() const;
 
     QVector<ViewTree*> getChildren() const;
 
@@ -36,15 +37,16 @@ private:
     ViewTree *addSibling();
     ViewTree *addChild();
     ViewTree *addParentSibling();
-    void setData(const QString name, const QtType type, QStringList value);
+    void setData(const QString name, const QtType type, const QStringList value, const QString method = "");
     void removeLastParentChild();
 
 private:
     QString name_;
     QtType type_ = QtType::Empty;
     QStringList value_;
-    ViewTree *parent_ = nullptr;
+    QString method_;
 
+    ViewTree *parent_ = nullptr;
     QVector<ViewTree*> child_;
 
     friend void treeBuilder(QDomNode xmlNode, QDomNode parentNode, ViewTree *tree);

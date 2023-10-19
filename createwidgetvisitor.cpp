@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 
-void getXmlData(const QDomElement& e, QString& name, QtType& type, QStringList& value)
+// #define DBG
+
+void getXmlData(const QDomElement& e, QString& name, QtType& type, QStringList& value, QString& method)
 {
     name = e.attribute("name", "");
     type = QtType::HorizontalLyout;
@@ -30,23 +32,27 @@ void getXmlData(const QDomElement& e, QString& name, QtType& type, QStringList& 
     {
         type = QtType::PushButton;
         value.append(e.attribute("value", ""));
+        method = e.attribute("method", "");
     }
     else if(tagType == "line")
     {
         type = QtType::LineEdit;
         value.append(e.attribute("value", ""));
+        method = e.attribute("method", "");
     }
     else if(tagType == "checkbox")
     {
         type = QtType::CheckBox;
         value.append(e.attribute("value", ""));
         value.append(e.attribute("checked", "false"));
+        method = e.attribute("method", "");
     }
     else if(tagType == "radiobutton")
     {
         type = QtType::RadioButton;
         value.append(e.attribute("value", ""));
         value.append(e.attribute("checked", "false"));
+        method = e.attribute("method", "");
     }
     else if(tagType == "combobox")
     {
@@ -66,6 +72,7 @@ void getXmlData(const QDomElement& e, QString& name, QtType& type, QStringList& 
                 }
                 cbItemNode = cbItemNode.nextSibling();
             }
+            method = e.attribute("method", "");
         }
     }
 }
@@ -112,11 +119,12 @@ void treeBuilder(QDomNode xmlNode, QDomNode parentNode, ViewTree *tree)
     QString tag = "";
     QStringList value;
     QString values = "";
+    QString method;
 
     if(!xmlNode.isNull() && xmlNode.toElement().isElement())
     {
         element = xmlNode.toElement();
-        getXmlData(element, name, type, value);
+        getXmlData(element, name, type, value, method);
         tag = tag2String(type);
         for(const QString& s : value)
             values += s + " ";
@@ -124,9 +132,7 @@ void treeBuilder(QDomNode xmlNode, QDomNode parentNode, ViewTree *tree)
 
     if(xmlNode.hasChildNodes() && !element.isNull())
     {
-        std::cout << "\n" << counter << tabs << tag.toStdString() << " \t" << name.toStdString() << " " << values.toStdString();
-
-        tree->setData(name, type, value);
+        tree->setData(name, type, value, method);
 
         if(type == QtType::ComboBox)
             treeBuilder(xmlNode.nextSibling(), parentNode, tree->addSibling());
@@ -143,16 +149,21 @@ void treeBuilder(QDomNode xmlNode, QDomNode parentNode, ViewTree *tree)
             QString values = "";
             for(const QString& s : value)
                 values += s + " ";
-            std::cout << "\n" << counter << tabs << tag.toStdString() << "  \t" << name.toStdString() << values.toStdString();
 
-            tree->setData(name, type, value);
+#ifdef DBG
+            std::cout << "\n" << counter << tabs << tag.toStdString() << "  \t" << name.toStdString() << values.toStdString();
+#endif
+
+            tree->setData(name, type, value, method);
 
             treeBuilder(xmlNode.nextSibling(), parentNode, tree->addSibling());
         }
     }
     else if(xmlNode.isNull() && !parentNode.isNull())
     {
+#ifdef DBG
         std::cout << "\n" << counter << "wychodzenie piętro wyżej  ";
+#endif
 
         if(tabs.size() > 1)
             tabs.pop_back();
@@ -165,10 +176,14 @@ void treeBuilder(QDomNode xmlNode, QDomNode parentNode, ViewTree *tree)
         else                                   // ostatni element
         {
             tree->removeLastParentChild();
+#ifdef DBG
             std::cout << "  ACK ";
+#endif
         }
 
+#ifdef DBG
         std::cout << std::flush;
+#endif
     }
 }
 

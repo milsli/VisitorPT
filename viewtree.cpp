@@ -20,6 +20,11 @@ QStringList ViewTree::getValue() const
     return value_;
 }
 
+QString ViewTree::getMethod() const
+{
+    return method_;
+}
+
 QVector<ViewTree *> ViewTree::getChildren() const
 {
     return child_;
@@ -48,11 +53,12 @@ ViewTree *ViewTree::addParentSibling()
     return parent_->addSibling();
 }
 
-void ViewTree::setData(const QString name, const QtType type, QStringList value)
+void ViewTree::setData(const QString name, const QtType type, const QStringList value, const QString method)
 {
     name_ = name;
     type_ = type;
     value_ = value;
+    method_ = method;
 }
 
 void ViewTree::removeLastParentChild()
