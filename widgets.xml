@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding='UTF-8' ?>
+<layout orientation="horizontal">
+	<layout orientation="vertical">
+		<label value="Samochody" />
+		<button value="Button wyboru" />
+		<line value="Samochody do wyboru" />
+		<layout orientation="horizontal">
+			<checkbox value="osobowy" checked="true"/>
+			<checkbox value="ciężarowy" checked="true"/>
+			<checkbox value="specjalny" checked="false"/>
+			<checkbox value="jednoślad" checked="true"/>
+		</layout>
+		<layout orientation="horizontal">
+			<radiobutton value="fiat" checked="true" />
+			<radiobutton value="mercedes" checked="false" />
+			<radiobutton value="bmw" />
+			<radiobutton value="opel" />
+		</layout>
+		<combobox name="cars" method="onComboChoice">
+			<item>Maserati</item>
+			<item>VW</item>
+			<item>Peugeot</item>
+			<item>Reanult</item>
+		</combobox>
+		<combobox name="types">
+			<item>combi</item>
+			<item>pick-up</item>
+			<item>sedan</item>
+			<item>hatchback</item>
+		</combobox>
+		<button value="jakis" />
+		<combobox name="types">
+			<item>combi</item>
+			<item>pick-up</item>
+			<item>sedan</item>
+			<item>hatchback</item>
+		</combobox>
+		<button value="jakis" />
+	</layout>
+	<layout orientation="vertical">
+		<label value="wartosc" />
+		<combobox name="types">
+			<item>combi</item>
+			<item>pick-up</item>
+			<item>sedan</item>
+			<item>hatchback</item>
+		</combobox>
+	</layout>
+</layout>
