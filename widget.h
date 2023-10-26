@@ -17,10 +17,12 @@ private:
     void setView();
 
 private slots:
-    void onStart();
+    void onStartBrain();
+    void onStartGui();
 
 private:
     CreateWidgetVisitor* visitor_;
-    QPushButton *startButton_;
+    QPushButton *startBrainButton_;
+    QPushButton *startGuiButton_;
 };
 #endif // WIDGET_H

@@ -16,6 +16,7 @@ enum class QtType
     ComboBox,
     CheckBox,
     RadioButton,
+    ListWidget,
     Widget,
     Empty
 };

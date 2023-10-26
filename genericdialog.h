@@ -21,6 +21,10 @@ private:
 
 public slots:
     void onCurrentIndexChanged(int index);
+    void onClicked();
+    void onStateChanged(int state);
+    void onToggled(bool state);
+    void onEditingFinished();
 };
 
 #endif // GENERICDIALOG_H

@@ -2,6 +2,7 @@
 #include "xmldefinitionholder.h"
 #include "createwidgetvisitor.h"
 #include <QVBoxLayout>
+#include <iostream>
 #include "genericdialog.h"
 
 Widget::Widget(QWidget *parent)
@@ -16,17 +17,25 @@ Widget::~Widget()
 
 void Widget::setView()
 {
-    startButton_ = new QPushButton("S T A R T");
+    startBrainButton_ = new QPushButton("START BRAIN");
+    startGuiButton_ = new QPushButton("START GUI");
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignCenter);
-    mainLayout->addWidget(startButton_);
+    mainLayout->addWidget(startBrainButton_);
+    mainLayout->addWidget(startGuiButton_);
 
     setLayout(mainLayout);
-    connect(startButton_, &QPushButton::clicked, this, &Widget::onStart);
+    connect(startBrainButton_, &QPushButton::clicked, this, &Widget::onStartBrain);
+    connect(startGuiButton_, &QPushButton::clicked, this, &Widget::onStartGui);
 }
 
-void Widget::onStart()
+void Widget::onStartBrain()
+{
+
+}
+
+void Widget::onStartGui()
 {
     visitor_ = new CreateWidgetVisitor;
     XMLDefinitionHolder xmlHolder;

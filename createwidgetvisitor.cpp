@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-// #define DBG
+#define DBG
 
 void getXmlData(const QDomElement& e, QString& name, QtType& type, QStringList& value, QString& method)
 {
@@ -68,7 +68,28 @@ void getXmlData(const QDomElement& e, QString& name, QtType& type, QStringList& 
                     if(!(cbItem.tagName() == "item"))
                         throw "Nieprowadłowa struktura elementu ComboBox";
 
-                    value.append(cbItem.text());
+                            value.append(cbItem.text());
+                }
+                cbItemNode = cbItemNode.nextSibling();
+            }
+            method = e.attribute("method", "");
+        }
+    }
+    else if(tagType == "list")
+    {
+        type = QtType::ListWidget;
+        if(e.hasChildNodes())
+        {
+            QDomNode cbItemNode = e.firstChild();
+            while(!cbItemNode.isNull())
+            {
+                QDomElement cbItem = cbItemNode.toElement();
+                if(!cbItem.isNull())
+                {
+                            if(!(cbItem.tagName() == "item"))
+                        throw "Nieprowadłowa struktura elementu ListWidget";
+
+                            value.append(cbItem.text());
                 }
                 cbItemNode = cbItemNode.nextSibling();
             }
@@ -100,6 +121,8 @@ QString tag2String(const QtType type)
         return "line";
     case QtType::ComboBox:
         return "combobox";
+    case QtType::ListWidget:
+        return "list";
     case QtType::RadioButton:
         return "radiobutton";
     case QtType::Widget:
@@ -134,7 +157,7 @@ void treeBuilder(QDomNode xmlNode, QDomNode parentNode, ViewTree *tree)
     {
         tree->setData(name, type, value, method);
 
-        if(type == QtType::ComboBox)
+        if(type == QtType::ComboBox || type == QtType::ListWidget)
             treeBuilder(xmlNode.nextSibling(), parentNode, tree->addSibling());
         else
         {

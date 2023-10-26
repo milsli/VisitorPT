@@ -2,19 +2,19 @@
 <layout orientation="horizontal">
 	<layout orientation="vertical">
 		<label value="Samochody" />
-		<button value="Button wyboru" />
-		<line value="Samochody do wyboru" />
+		<button name="buton" value="Button wyboru" method="onClicked" />
+		<line name="samoch" value="Samochody do wyboru" method="onEditingFinished"/>
 		<layout orientation="horizontal">
-			<checkbox value="osobowy" checked="true"/>
-			<checkbox value="ciężarowy" checked="true"/>
-			<checkbox value="specjalny" checked="false"/>
-			<checkbox value="jednoślad" checked="true"/>
+			<checkbox name="obobowy" value="osobowy" checked="true" method="onStateChanged" />
+			<checkbox name="ciezarowy" value="ciężarowy" checked="true" method="onStateChanged" />
+			<checkbox name="specjalny" value="specjalny" checked="false" method="onStateChanged" />
+			<checkbox name="motor" value="jednoślad" checked="true" method="onStateChanged" />
 		</layout>
 		<layout orientation="horizontal">
-			<radiobutton value="fiat" checked="true" />
-			<radiobutton value="mercedes" checked="false" />
-			<radiobutton value="bmw" />
-			<radiobutton value="opel" />
+			<radiobutton name="fiat" value="fiat" checked="true" method="onToggled" />
+			<radiobutton name="merol" value="mercedes" checked="false" method="onToggled" />
+			<radiobutton name="bmw" value="bmw" method="onToggled" />
+			<radiobutton name="opel" value="opel" method="onToggled" />
 		</layout>
 		<combobox name="cars" method="onCurrentIndexChanged">
 			<item>Maserati</item>
@@ -28,17 +28,27 @@
 			<item>sedan</item>
 			<item>hatchback</item>
 		</combobox>
-		<button value="jakis" />
+		<button name="wybor" value="Wybór"  method="onClicked" />
 		<combobox name="wiek" method="onCurrentIndexChanged">
 			<item>pon. 5</item>
 			<item>pon. 15</item>
 			<item>zabytki</item>
 			<item>antyki</item>
 		</combobox>
-		<button value="jakis" />
+		<button name="poziom" value="Poziom"  method="onClicked" />
 	</layout>
 	<layout orientation="vertical">
+		<list name="modele" value="lista" method="onCurrentIndexChanged">
+			<item>corolla</item>
+			<item>avensis</item>
+			<item>sienna</item>
+			<item>camry</item>
+			<item>vectra</item>
+			<item>bora</item>
+			<item>tucson</item>
+		</list>
 		<label value="wartosc" />
+		<line name="command" value="Komenda do wykonania" method="onEditingFinished"/>
 		<combobox name="pochodzenie" method="onCurrentIndexChanged">
 			<item>Japonia</item>
 			<item>Korea</item>
